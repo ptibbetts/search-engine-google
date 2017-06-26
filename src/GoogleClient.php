@@ -71,6 +71,8 @@ class GoogleClient
 
         if (200 == $statusCode) {
             return new GoogleSerp($response->getPageContent(), $effectiveUrl);
+        } elseif (302 == $statusCode) {
+            return new GoogleSerp($response->getPageContent(), $effectiveUrl);
         } else {
             if (404 == $statusCode) {
                 throw new PageNotFoundException($response);
