@@ -73,6 +73,8 @@ class GoogleClient
             return new GoogleSerp($response->getPageContent(), $effectiveUrl);
         } elseif (302 == $statusCode) {
             return new GoogleSerp($response->getPageContent(), $effectiveUrl);
+        } elseif (strpos($response->getPageContent(), 'itemtype="http://schema.org/SearchResultsPage"') !== false) {
+            return new GoogleSerp($response->getPageContent(), $effectiveUrl);
         } else {
             if (404 == $statusCode) {
                 throw new PageNotFoundException($response);
